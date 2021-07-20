@@ -5,11 +5,20 @@ from flask_app.models.ninja import Ninja
 
 @app.route('/')
 def index():
+    return redirect("/dojos")
+
+@app.route('/dojos')
+def dojos_home():
     return render_template("dojo.html")
 
 @app.route('/ninjas')
 def ninja():
     return render_template("ninja.html")
+
+# @app.route('/process_dojo', methods=['POST'])
+
+
+# @app.route('/process_ninja', methods=['POST'])
 
 @app.route('/dojos/1')
 def dojos():
