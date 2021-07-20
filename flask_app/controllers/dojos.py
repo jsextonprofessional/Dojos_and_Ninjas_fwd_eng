@@ -25,8 +25,11 @@ def ninja():
 def process_ninja_form():
     Ninja.add_ninja(request.form)
     return redirect(f"/dojos/{request.form['dojo-select']}")
-# 
-# @app.route('/process_dojo', methods=['POST'])
+
+@app.route('/process_dojo', methods=['POST'])
+def process_add_dojo():
+    Dojo.add_dojo(request.form)
+    return redirect('/')
 
 # dojo show page - required page 3
 @app.route('/dojos/<int:dojo_id>')
@@ -37,11 +40,3 @@ def dojo_show(dojo_id):
     ninjas = Ninja.get_all_ninjas_by_dojo_id(data)
     dojo = Dojo.get_dojo_by_id(data)
     return render_template("dojo_show.html", dojo = dojo, ninjas = ninjas)
-
-# @app.route('/dojos/<int:dojo_id>')
-# def dojo_show(dojo_id):
-#     data = {
-#         'id': dojo_id
-#     }
-#     dojo = Dojo.get_dojo_by_id(data)
-#     return render_template("dojo_show.html", dojo = dojo)

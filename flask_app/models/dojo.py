@@ -22,3 +22,9 @@ class Dojo():
         result = connectToMySQL('dojos_and_ninjas_schema').query_db(query,data)
         dojo = Dojo(result[0])
         return dojo
+
+    @classmethod
+    def add_dojo(cls, data):
+        query = "INSERT INTO dojos (name) VALUES (%(name)s);"
+        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
+        return results
