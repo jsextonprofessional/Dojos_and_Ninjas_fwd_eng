@@ -8,10 +8,17 @@ class Dojo():
         self.updated_at = data['updated_at']
 
     @classmethod
-    def get_all(cls):
+    def get_all_dojos(cls):
         query = "SELECT * FROM dojos;"
-        results = connectToMySQL('dojos_and_ninjas_model').query_db(query)
+        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query)
         dojos = []
-        for item in results:
-            dojos.append(Dojo(item))
+        for dojo in results:
+            dojos.append(cls(dojo))
         return dojos
+
+    @classmethod
+    def get_dojo_by_id(cls, data):
+        query = "SELECT * FROM dojos WHERE id = %(id)s;"
+        result = connectToMySQL('dojos_and_ninjas_schema').query_db(query,data)
+        dojo = Dojo(result[0])
+        return dojo

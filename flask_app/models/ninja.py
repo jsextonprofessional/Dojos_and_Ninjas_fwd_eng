@@ -11,10 +11,24 @@ class Ninja():
         self.dojo_id = data['dojo_id']
 
     @classmethod
-    def get_all(cls):
+    def get_all_ninjas(cls):
         query = "SELECT * FROM ninjas;"
-        results = connectToMySQL('dojos_and_ninjas_model').query_db(query)
+        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query)
         ninjas = []
-        for item in results:
-            ninjas.append(cls(item))
+        for ninja in results:
+            ninjas.append(cls(ninja))
         return ninjas
+
+    @classmethod
+    def get_all_ninjas_by_dojo_id(cls, data):
+        query = "SELECT * FROM ninjas WHERE dojo_id = %(id)s;"
+        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
+        ninjas = []
+        for ninja in results:
+            ninjas.append(cls(ninja))
+        return ninjas
+
+    @classmethod
+    def add_ninja(cls, data):
+        query = "INSERT INTO ninjas (first_name, last_name, age, dojo_id) VALUES (%(first_name)s, %(last_name)s, %(age)s, %(dojo-select)s);"
+        connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
